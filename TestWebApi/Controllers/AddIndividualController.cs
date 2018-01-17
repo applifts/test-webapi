@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using TestWebApi.Domain;
 using TestWebApi.Domain.Entities;
 using TestWebApi.Helpers;
 using TestWebApi.Services;
@@ -20,7 +21,13 @@ namespace TestWebApi.Controllers
     [Route("[controller]")]
     public class AddIndividualController : Controller
     {
-        private IUserService _userService;
+        private readonly DataContext _context;
+
+        public AddIndividualController(DataContext context)
+        {
+            _context = context;
+        }
+
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
@@ -29,21 +36,24 @@ namespace TestWebApi.Controllers
             IMapper mapper,
             IOptions<AppSettings> appSettings)
         {
-            _userService = userService;
             _mapper = mapper;
             _appSettings = appSettings.Value;
         }
 
+        [AllowAnonymous]
         [HttpPost("/{people}")]
         public IActionResult Register([FromBody]PeopleDto peopleDto)
         {
             // map dto to entity
-            //var user = _mapper.Map<People>(peopleDto);
+            var person = _mapper.Map<People>(peopleDto);
 
             try 
             {
                 // save 
-                //_userService.Create(user, userDto.Password);
+                
+                _context.Peoples.Add(person);
+                _context.SaveChanges();
+    
                 return Ok();
             } 
             catch(AppException ex)
