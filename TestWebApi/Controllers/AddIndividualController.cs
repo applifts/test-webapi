@@ -22,22 +22,14 @@ namespace TestWebApi.Controllers
     public class AddIndividualController : Controller
     {
         private readonly DataContext _context;
-
-        public AddIndividualController(DataContext context)
-        {
-            _context = context;
-        }
-
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
 
-        public AddIndividualController(
-            IUserService userService,
-            IMapper mapper,
-            IOptions<AppSettings> appSettings)
+        public AddIndividualController(IMapper mapper, IOptions<AppSettings> appSettings, DataContext context)
         {
             _mapper = mapper;
             _appSettings = appSettings.Value;
+            _context = context;
         }
 
         [AllowAnonymous]
