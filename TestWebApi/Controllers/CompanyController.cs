@@ -32,6 +32,15 @@ namespace TestWebApi.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var companies =   _context.Companies;
+        
+            var companyDtos = _mapper.Map<IList<CompanyDto>>(companies);
+            return Ok(companyDtos);
+        }
+
         [AllowAnonymous]
         [HttpPost("/{company}")]
         public IActionResult Register([FromBody]CompanyDto companyDto)
