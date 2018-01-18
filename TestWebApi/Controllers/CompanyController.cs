@@ -43,6 +43,15 @@ namespace TestWebApi.Controllers
          }
 
         [AllowAnonymous]
+         [HttpGet("/company/{id}")]
+         public IActionResult GetById(int id)
+         {
+             var company =   _context.Companies.Find(id);
+             var companyDto = _mapper.Map<CompanyDto>(company);
+             return Ok(company);
+         }
+         
+        [AllowAnonymous]
         [HttpPost("/company/{company}")]
         public IActionResult Register([FromBody]CompanyDto companyDto)
         {
