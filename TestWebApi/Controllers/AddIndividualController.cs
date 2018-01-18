@@ -50,7 +50,7 @@ namespace TestWebApi.Controllers
          public IActionResult GetById(int id)
          {
              var person =   _context.Peoples.Find(id);
-             var personDto = _mapper.Map<IList<PeopleDto>>(person);
+             var personDto = _mapper.Map<PeopleDto>(person);
              return Ok(personDto);
          }
          
