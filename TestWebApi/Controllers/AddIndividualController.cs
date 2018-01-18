@@ -43,6 +43,18 @@ namespace TestWebApi.Controllers
              return Ok(peopleDtos);
          }
          
+
+
+        [AllowAnonymous]
+         [HttpGet("/people/{id}")]
+         public IActionResult GetById(int id)
+         {
+             var person =   _context.Peoples.Find(id);
+             var personDto = _mapper.Map<IList<PeopleDto>>(person);
+             return Ok(personDto);
+         }
+         
+
         [AllowAnonymous]
         [HttpPost("/people/{people}")]
         public IActionResult Register([FromBody]PeopleDto peopleDto)
