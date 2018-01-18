@@ -32,7 +32,8 @@ namespace TestWebApi.Controllers
             _context = context;
         }
 
-         [HttpGet("/company/")]
+        [AllowAnonymous]
+         [HttpGet("/company")]
          public IActionResult GetAll()
          {
              var companies =   _context.Companies;
