@@ -10,7 +10,7 @@ namespace TestWebApi.Services.Dtos
         public string Address2 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int Zipcode { get; set; }
+        public string Zipcode { get; set; }
         public string PhoneNumber { get; set; }
         public string Notes { get; set; }
         public string POC {get ;set; } 

@@ -32,17 +32,17 @@ namespace TestWebApi.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var companies =   _context.Companies;
+         [HttpGet("/company/")]
+         public IActionResult GetAll()
+         {
+             var companies =   _context.Companies;
         
-            var companyDtos = _mapper.Map<IList<CompanyDto>>(companies);
-            return Ok(companyDtos);
-        }
+             var companyDtos = _mapper.Map<IList<CompanyDto>>(companies);
+             return Ok(companyDtos);
+         }
 
         [AllowAnonymous]
-        [HttpPost("/{company}")]
+        [HttpPost("/company/{company}")]
         public IActionResult Register([FromBody]CompanyDto companyDto)
         {
             // map dto to entity
